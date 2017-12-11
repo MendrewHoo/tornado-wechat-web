@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block header_title %}Site Title{% endblock %} - wechat后台管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="icon" type="image/png" href="{{ static_url('assets/i/favicon.png') }}">
+    <link rel="stylesheet" href="{{ static_url('assets/css/amazeui.min.css') }}"/>
+    <link rel="stylesheet" href="{{ static_url('assets/css/amazeui.datatables.min.css') }}"/>
+    <link rel="stylesheet" href="{{ static_url('assets/css/app.css') }}">
+    {% block header_static %}{% endblock %}
+</head>
+<body data-type="{{ topbar }}">
+<div class="am-g tpl-g">
+    <!-- 风格切换 -->
+    <div class="tpl-skiner">
+        <div class="tpl-skiner-toggle am-icon-cog">
+        </div>
+        <div class="tpl-skiner-content">
+            <div class="tpl-skiner-content-title">
+                选择主题
+            </div>
+            <div class="tpl-skiner-content-bar">
+                <span class="skiner-color skiner-white" data-color="theme-white"></span>
+                <span class="skiner-color skiner-black" data-color="theme-black"></span>
+            </div>
+        </div>
+    </div>
+
+    {% block body %}Hello world! {% endblock %}
+    {% include 'module/win-modal.html' %}
+</div>
+
+
+<script src="{{ static_url('assets/js/jquery.min.js') }}"></script>
+<script src="{{ static_url('assets/js/amazeui.min.js') }}"></script>
+<script src="{{ static_url('assets/js/theme.js') }}"></script>
+<script src="{{ static_url('assets/js/app.js') }}"></script>
+{% block footer_static %}{% endblock %}
+</body>
+</html>

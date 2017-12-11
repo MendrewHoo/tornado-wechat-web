@@ -1,0 +1,51 @@
+<!-- 侧边导航栏 -->
+<div class="left-sidebar">
+    <!-- 用户信息 -->
+    <div class="tpl-sidebar-user-panel">
+        <div class="tpl-user-panel-slide-toggleable">
+            <div class="tpl-user-panel-profile-picture">
+                <img src="{{ current_user['faceurl'] }}" alt="">
+            </div>
+            <span class="user-panel-logged-in-text">
+              <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
+              {{ current_user['userid'] }}
+          </span>
+            <a href="javascript:;" class="tpl-user-panel-action-link"> <span class="am-icon-pencil"></span> 账号设置</a>
+        </div>
+    </div>
+
+    <!-- 菜单 -->
+    <ul class="sidebar-nav">
+        <li class="sidebar-nav-link">
+            <a href="index.html" {% if topbar == 'index' %}class="active"{% endif %}>
+                <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
+            </a>
+        </li>
+        <li class="sidebar-nav-link">
+            <a href="/manage/plugins" {% if topbar == 'plugins' %}class="active"{% endif %}>
+                <i class="am-icon-plug sidebar-nav-link-logo"></i> 插件管理
+            </a>
+        </li>
+
+        <li class="sidebar-nav-link">
+            <a href="javascript:;" class="sidebar-nav-sub-title" >
+                <i class="am-icon-table sidebar-nav-link-logo"></i> 数据列表
+                <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico
+                    {% if topbar in ('userlist',) %}sidebar-nav-sub-ico-rotate{% endif %}"></span>
+            </a>
+            <ul class="sidebar-nav sidebar-nav-sub" {% if topbar in ('userlist',) %}style="display: block;"{% endif %}>
+                <li class="sidebar-nav-link">
+                    <a href="/manage/userlist" {% if topbar == 'userlist' %}class="active"{% endif %}>
+                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 用户列表
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="sidebar-nav-link">
+            <a href="/manage/settings" {% if topbar == 'settings' %}class="active"{% endif %}>
+                <i class="am-icon-cog sidebar-nav-link-logo"></i> 设置
+            </a>
+        </li>
+
+    </ul>
+</div>

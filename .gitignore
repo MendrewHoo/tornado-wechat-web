@@ -1,0 +1,16 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# temp
+temp/
+
+# idea
+.idea/
+
+# os
+.DS_Store
+
+# self
+test.py
+config.yaml

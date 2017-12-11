@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block header_title %}登录{% endblock %}
+{% block body %}
+    <div class="tpl-login">
+        <div class="tpl-login-content">
+            <div class="tpl-login-logo">
+
+            </div>
+
+
+            <form class="am-form tpl-form-line-form" method="post">
+                <div class="am-form-group">
+                    <div class="am-alert auth-info" data-am-alert style="display: none">
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <input type="text" class="tpl-form-input" name="userid" placeholder="请输入账号">
+
+                </div>
+
+                <div class="am-form-group">
+                    <input type="password" class="tpl-form-input" name="password" placeholder="请输入密码">
+
+                </div>
+
+                <div class="am-form-group">
+
+                    <button type="button"
+                            class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn">登录
+                    </button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block footer_static %}
+    <script src="{{ static_url('assets/js/auth.js') }}"></script>
+{% endblock %}

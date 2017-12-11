@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+
+{% block header_title %}插件管理{% endblock %}
+
+{% block body %}
+    {% include 'module/header.html' %}
+    {% include 'module/left-sidebar.html' %}
+
+    <!-- 内容区域 -->
+    <div class="tpl-content-wrapper">
+
+        <div class="container-fluid am-cf">
+            <div class="row">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                    <div class="page-header-heading"><span class="am-icon-cog page-header-heading-icon"></span> 设置
+                    </div>
+                    <p class="page-header-description">Amaze UI 有许多不同的表格可用。</p>
+                </div>
+                <div class="am-u-lg-3 tpl-index-settings-button">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row-content am-cf">
+
+            <div class="row">
+
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                    <div class="widget am-cf">
+                        <div class="widget-head am-cf">
+                            <div class="widget-title am-fl">系统设置</div>
+                        </div>
+                        <div class="widget-body am-fr">
+
+                            <form class="am-form tpl-form-border-form tpl-form-border-br" action="/settings/system" method="post">
+
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">微信 appID</label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" class="tpl-form-input" name="wx_appid"
+                                               placeholder="{{ config['global']['wechat']['appid'] }}">
+                                        <small>如无修改请不用填写</small>
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">微信 appsecret</label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" class="tpl-form-input" name="wx_appsecret"
+                                               placeholder="{{ hidekey(config['global']['wechat']['appsecret']) }}">
+                                        <small>如无修改请不用填写</small>
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">微信认证登录</label>
+                                    <div class="am-u-sm-9">
+                                        <div class="tpl-switch">
+                                            <input type="checkbox" class="ios-switch bigswitch tpl-switch-btn"
+                                                   {% if config['global']['wechat_auth'] %}checked{% endif %} name="wx_auth">
+                                            <div class="tpl-switch-btn-view">
+                                                <div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <div class="am-u-sm-9 am-u-sm-push-3">
+                                        <button type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
+                    <div class="widget am-cf">
+                        <div class="widget-head am-cf">
+                            <div class="widget-title am-fl">管理员列表</div>
+                            <div class="widget-function am-fr">
+                                <span class="am-text-sm"></span>
+                                <a href="javascript:;" onfocus="this.blur();"
+                                   class="am-icon-plus"></a>
+                            </div>
+                        </div>
+                        <div class="widget-body  widget-body-lg am-fr">
+
+                            <table width="100%" class="am-table am-table-compact tpl-table-black" id="example-r">
+                                <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>用户名</th>
+                                    <th>微信号</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for user in userlist %}
+                                    <tr class="gradeX">
+                                        <td class="index">{{ loop.index }}</td>
+                                        <td>{{ user['userid'] }}</td>
+                                        <td>{% if user['wechatid'] %}{{ user['wechatid'] }}{% else %}无{% endif %}</td>
+                                    </tr>
+                                {% endfor %}
+                                <!-- more data -->
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
+                    <div class="widget am-cf">
+                        <div class="widget-head am-cf">
+                            <div class="widget-title am-fl">HttpAPI 设置</div>
+                        </div>
+                        <div class="widget-body  widget-body-lg am-fr">
+                            <form class="am-form tpl-form-border-form tpl-form-border-br" action="/settings/httpapi" method="post">
+                                {% for key, value in config['apikey'].items() %}
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">{{ key }}</label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" class="tpl-form-input" name="{{ key }}"
+                                               placeholder="{{ hidekey(value) }}">
+                                        <small>如无修改请不用填写</small>
+                                    </div>
+                                </div>
+                                {% endfor %}
+
+                                <div class="am-form-group">
+                                    <div class="am-u-sm-9 am-u-sm-push-3">
+                                        <button type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+{% endblock %}
+{% block footer_static %}
+    <script src="{{ static_url('assets/js/amazeui.datatables.min.js') }}"></script>
+    <script src="{{ static_url('assets/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ static_url('assets/js/settings.js') }}"></script>
+{% endblock %}

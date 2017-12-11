@@ -1,0 +1,33 @@
+"apikey":
+  "bdmap": "your key"
+  "bdmap_sk": "your sk"
+  "heweather": "your key"
+"database":
+  "config": "mongodb://localhost:27017/"
+  "db": "TodoWeChat"
+"global":
+  "cookie_secret": "qEVaTBfXQUm9roVlSXh0Yg=="
+  "debug": !!bool "true"
+  "intranet": !!bool "true"
+  "wechat":
+    "appid": "your appid"
+    "appsecret": "your appsecret"
+    "token": "your token"
+  "wechat_auth": !!bool "true"
+"plugin_config":
+  "click_event":
+  - "weather"
+  "location_event":
+  - "location"
+  "receive_message":
+  - "chatterbot"
+  - "weather"
+  "scan_event":
+  - "scanqrcode"
+  - "subscribe"
+  "subscribe_event":
+  - "subscribe"
+"redis":
+  "db": !!int "0"
+  "host": "localhost"
+  "port": !!int "6379"
