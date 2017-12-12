@@ -5,7 +5,7 @@ import tornado.web, re
 from controller.base import BaseHandler
 from tornado import gen
 import time, pymongo
-from util.function import intval, hidekey
+from util.function import intval, hidekey, server_info_percent
 from bson.objectid import ObjectId
 from tornroutes import route
 from wechat.util.wechat_user import wechatUser
@@ -41,9 +41,13 @@ class DashboardHandler(BaseHandler):
             'subscribe': True,
             'subscribe_time': {'$gt': time.time() - 30 * 24 * 60 * 60}
         }).count()
+        cpu, memory, disk = yield self.backend.submit(server_info_percent)
         kargs = {
             'subscribe_count': subscribe_count,
-            'm_subscribe_count': m_subscribe_count
+            'm_subscribe_count': m_subscribe_count,
+            'cpu': cpu,
+            'memory': memory,
+            'disk': disk
         }
         self.render('index.html', **kargs)
 

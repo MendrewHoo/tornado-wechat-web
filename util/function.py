@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import bcrypt, os, string, random, hashlib, time, re, tornado.escape, datetime, jieba
+import bcrypt, os, string, random, hashlib, time, re, tornado.escape, datetime, jieba, psutil
 
 
 class hash:
@@ -204,3 +204,14 @@ def dumpprint(obj):
     for attr in newobj:
         newobj[attr] = dumpprint(newobj[attr])
     return newobj
+
+def server_info_percent():
+    '''
+    返回服务器cpu, 内存, 磁盘占用率
+    :return:
+    '''
+    cpu_percent = psutil.cpu_percent(interval=1)
+    memory_percent = "%.1f" % ((psutil.virtual_memory().percent + psutil.swap_memory().percent) / 2)
+    disk_percent = psutil.disk_usage('/').percent
+
+    return cpu_percent, memory_percent, disk_percent
