@@ -9,6 +9,7 @@ from tornroutes import route, generic_route
 from wechat.plugin_manager import PluginManager
 from util.httpapi import HttpApi
 from tornado_jinja2 import Jinja2Loader
+from wechat.util.wechat_util import wechatUtil
 
 define('port', default=7770, help='Run server on a specific port', type=int)
 define('host', default='localhost', help='Run server on a specific host')
@@ -58,6 +59,10 @@ try:
     with open('config.yaml', 'r', encoding='utf-8') as f:
         config = yaml.load(f)
     settings.update(config['global'])
+    # Token
+    if 'wechat' in config and 'token' in config['wechat']:
+        settings['wechat_token'] = config['wechat']['token']
+    # session driver for redis
     if 'redis' in config and settings['session']['driver'] == 'redis':
         settings['session']['driver_settings'] = config['redis']
 except Exception as e:
@@ -86,6 +91,14 @@ try:
     settings['redis'] = redis
 except:
     print('cannot connect redis, check the config.yaml')
+    sys.exit(0)
+
+# wechat util init
+try:
+    wechat = wechatUtil(config['wechat']['appid'], config['wechat']['appsecret'], redis_client=redis)
+    settings['wechat'] = wechat
+except:
+    print('cannot init wechat util, check the config.yaml')
     sys.exit(0)
 
 # plugin init

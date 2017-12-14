@@ -32,7 +32,7 @@ class WeChatHandler(BaseHandler):
         timestamp = self.get_argument('timestamp', '')
         nonce = self.get_argument('nonce', '')
         try:
-            if not check_signature(self.settings['wechat']['token'], signature, timestamp, nonce):
+            if not check_signature(self.settings['wechat_token'], signature, timestamp, nonce):
                 return True
         except InvalidSignatureException:
             # 处理异常情况或忽略

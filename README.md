@@ -5,4 +5,8 @@ Tornado Wechat Web 是Tornado的微信公众号后台管理服务, 采用插件�
 ### Quick links
 
 [使用说明&文档](https://www.8pizza.top/tornadowechatweb)
+
 [Source (github)](https://github.com/MendrewHoo/tornado-wechat-web.git)
+
+### 更新
+>2017-12-14: 增加菜单管理

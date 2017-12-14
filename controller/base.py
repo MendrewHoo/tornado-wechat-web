@@ -6,15 +6,15 @@ from torndsession.sessionhandler import SessionBaseHandler
 from util.flash import flash
 from util.function import humantime, nl2br
 
-
 class BaseHandler(SessionBaseHandler):
     def initialize(self):
         self.db = self.settings.get('database')
         self.redis = self.settings.get('redis')
+        self.wechat = self.settings.get('wechat')
         self.httpapi = self.settings.get('httpapi')
         self.backend = self.settings.get('thread_pool')
         self.flash = flash(self)
-        self.topbar = 'home'
+        self.topbar = ''
 
     def prepare(self):
         self.add_header("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; "
@@ -26,12 +26,9 @@ class BaseHandler(SessionBaseHandler):
         self.add_header("X-UA-Compatible:", "IE=edge,chrome=1")
         self.clear_header('Server')
         self.power = 'guest'
-        power = {
-            20: 'admin'
-        }
-        if self.current_user and self.current_user.get('power') in power:
-            self.power = power[self.current_user['power']]
-
+        if self.current_user and self.current_user['power'] in self.settings['power']:
+            self.power = self.settings['power'][self.current_user['power']]
+        self.check_login()
         flush = self.get_cookie('flush_info', default=None)
         if self.current_user and not flush:
             self.flush_session()
@@ -41,7 +38,7 @@ class BaseHandler(SessionBaseHandler):
             assert type(self.current_user) is dict
             assert 'userid' in self.current_user
         except AssertionError:
-            self.custom_error('请先注册或登录', jump='/login')
+            self.redirect('/login')
 
     def get_current_user(self):
         try:
@@ -103,18 +100,6 @@ class BaseHandler(SessionBaseHandler):
     # 跳转网页
     def redirect(self, url, permanent=False, status=None):
         super().redirect(url, permanent, status)
-        raise tornado.web.Finish()
-
-    # 显示错误信息页面
-    def custom_error(self, info, **kwargs):
-        if not self._finished:
-            status_code = kwargs.get('status_code', 200)
-            self.set_status(status_code)
-            error_title = kwargs.get('title', '提示信息')
-            error_status = kwargs.get('status', 'warning')
-            error_jump = kwargs.get('jump', '#back')
-            self.render('error.html', error_info=info, error_status=error_status,
-                        error_title=error_title, error_jump=error_jump)
         raise tornado.web.Finish()
 
     # json 数据返回

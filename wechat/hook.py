@@ -31,7 +31,6 @@ class Hook(object):
                 hook_str = 'location_event'
 
         if hook_str and hook_str in plugins.keys():
-            print(plugins)
             hook_list = plugins[hook_str]
             if isinstance(hook_list, list):
                 for plugin in hook_list:

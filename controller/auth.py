@@ -77,6 +77,8 @@ class LoginHandler(BaseHandler):
         super().prepare()
 
     def get(self, *args, **kwargs):
+        if self.settings['power'][self.current_user['power']] == 'admin':
+            self.redirect('/manage/index')
         self.render('login.html')
 
     @tornado.web.asynchronous
@@ -108,13 +110,12 @@ class LoginHandler(BaseHandler):
         # 是否关闭微信认证
         if self.settings['wechat_auth']:
             # 微信扫描认证
-            wQrcode = wechat_qrcode.wechatQrcode(self.settings['wechat']['appid'], self.settings['wechat']['appsecret'])
             # 登录或者绑定
             if 'wechatid' in user and user['wechatid']:
                 key = '{}:{}'.format(wechat_qrcode.login_qrcode, user['userid'])
             else:
                 key = '{}:{}'.format(wechat_qrcode.binding_qrcode, user['userid'])
-            res = wQrcode.create_qrcode(key)
+            res = self.wechat.qrcode.create_qrcode(key)
             self.redis.set(key, 0)
             self.flash['temp_user'] = user
             self._json('success', {'url': res['url'], 'key': key})

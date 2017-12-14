@@ -14,8 +14,6 @@ class ScanQrcodePlugin(BasePlugin):
 
     async def run(self, msg=None):
         intent_list = msg.scene_id.split(':', 1)
-        print('*'* 20, self.request.redis.get(msg.scene_id))
         if intent_list[0] in (wechat_qrcode.binding_qrcode, wechat_qrcode.login_qrcode) \
                 and self.request.redis.get(msg.scene_id) == '0':
             self.request.redis.set(msg.scene_id, msg.source)
-            self.request.redis.get(msg.scene_id)

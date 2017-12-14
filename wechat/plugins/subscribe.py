@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from .base import BasePlugin
-from wechat.util.wechat_user import wechatUser
 
 __type__ = ("scan_event", "subscribe_event")
 __className__ = "SubscribePlugin"

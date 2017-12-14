@@ -42,7 +42,6 @@ class PluginManager(object):
         hook.plugins = {}
 
         # 根据配置顺序向hook注册
-        print(config)
         for (type, plugin_list) in config.items():
             for plugin_name in plugin_list:
                 if plugin_name in plugins:

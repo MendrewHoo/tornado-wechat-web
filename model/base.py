@@ -15,7 +15,8 @@ class BaseModel:
         "email": "{name}格式错误",
         "number": "{name}必须是数字",
         "url": "{name}格式错误",
-        "pattern": "{name}格式错误"
+        "pattern": "{name}格式错误",
+        "in_list": "{name}不在预设范围内"
     }
     error_msg = ''
     _needcheck = ()
@@ -63,3 +64,6 @@ class BaseModel:
 
     def _check_pattern(self, valid, value):
         return re.match(valid, value)
+
+    def _check_in_list(self, valid, value):
+        return (value in valid)

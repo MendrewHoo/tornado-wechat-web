@@ -1,0 +1,145 @@
+<form class="am-form tpl-form-line-form" id="edit-menu" data-menu-id="{{ menu['_id'] }}"
+      data-menu-type="{{ menu['type'] }}">
+    <div class="am-form-group">
+        <input type="text" class="tpl-form-input" name="name" value="{{ menu['name'] }}" placeholder="菜单名" required>
+    </div>
+    {% if menu['type'] == 'supmenu' %}
+        <input type="hidden" name="type" value="supmenu">
+        <div class="am-form-group">
+            <div>
+                <div class="widget-head am-cf">
+                    <div class="widget-title am-fl"></div>
+                    <div class="widget-function am-fr">
+                        <span class="am-text-sm"><small>如需删除请拖至下方的未添加列表中</small> 子菜单列表</span>
+                    </div>
+                </div>
+                <div class="widget-body am-text-left">
+                    <table width="100%" class="am-table am-table-compact tpl-table-black">
+                        <tbody id="avail_list" class="connectedSortable">
+                        <tr class="ui-state-disabled">
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        {% if menu['sub_button'] %}
+                            {% for sub_menu in menu['sub_button'] %}
+                                <tr class="gradeX">
+                                    <td>{{ sub_menu['name'] }}
+                                        <input type="hidden" name="sub_button" value="{{ sub_menu['_id'] }}"></td>
+                                    <td>{{ sub_menu['type'] }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        <!-- more data -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="widget-head am-cf">
+                    <div class="widget-title am-fl"></div>
+                    <div class="widget-function am-fr">
+                        <span class="am-text-sm"><small>如需添加请拖至上方的子菜单列表中</small> 未添加列表</span>
+                    </div>
+                </div>
+                <div class="widget-body am-text-left">
+                    <table width="100%" class="am-table am-table-compact tpl-table-black">
+                        <tbody id="under_list" class="connectedSortable">
+                        <tr class="ui-state-disabled">
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        {% if menu['enableAdd'] %}
+                            {% for enableAdd_menu in menu['enableAdd'] %}
+                                <tr class="gradeX">
+                                    <td>{{ enableAdd_menu['name'] }}
+                                        <input type="hidden" name="sub_button" value="{{ enableAdd_menu['_id'] }}"></td>
+                                    <td>{{ enableAdd_menu['type'] }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        <!-- more data -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <script>
+            var fixEmptyTbodyBug = function (e, ui) {
+                if (ui.item.parent()[0].childElementCount > menu_count) {
+                    {# 被加入的容器超过总数, 将兄弟元素(此时为空)的不可拖动tr显示 #}
+                    ui.item.closest(".widget-body").siblings(".widget-body").find(".ui-state-disabled").css('display', 'block');
+                } else {
+                    {# 被加入的容器不超过总数, 将自身的不可拖动tr隐藏 #}
+                    ui.item.parent().find(".ui-state-disabled").css('display', 'none');
+                }
+            };
+            var menu_count = {{ menu['sub_button']|length + menu['enableAdd']|length }};
+            $("#avail_list, #under_list").sortable({
+                items: "tr:not(.ui-state-disabled)",
+                disabled: false,
+                helper: fixHelperModified,
+                stop: fixEmptyTbodyBug,
+                connectWith: ".connectedSortable"
+            }).disableSelection();
+        </script>
+    {% else %}
+        {# 非父级菜单 #}
+        <div class="am-form-group">
+            {% for k, v in typedict.items() %}
+                {% if k != 'supmenu' %}
+                    <div class="pretty p-default p-round">
+                        <input type="radio" name="type" value="{{ k }}" {% if k == menu['type'] %}checked{% endif %}>
+                        <div class="state">
+                            <label>{{ v }}</label>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="am-form-group">
+            <div>
+                <div class="widget-head am-cf">
+                    <div class="widget-title am-fl"></div>
+                    <div class="widget-function am-fr">
+                        <span class="am-text-sm"></span>
+                        <a href="javascript:;" onfocus="this.blur();" onclick="addArg(this)"
+                           class="am-icon-plus"> 添加</a>
+                    </div>
+                </div>
+                <div class="widget-body am-fr">
+                    <table width="100%" class="am-table am-table-compact tpl-table-black">
+                        <thead>
+                        <tr>
+                            <th>参数名</th>
+                            <th>参数值</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if menu['args'] %}
+                            {% for key, value in menu['args'].items() %}
+                                <tr class="gradeX">
+                                    <td>
+                                        <input type="text" class="tpl-form-input" name="key"
+                                               value="{{ key }}" placeholder="键" required></td>
+                                    <td><input type="text" class="tpl-form-input" name="value"
+                                               value="{{ value }}" placeholder="值" required>
+                                    </td>
+                                    <td>
+                                        <div class="tpl-table-black-operation">
+                                            <a href="javascript:;" class="tpl-table-black-operation-del"
+                                               onclick="removeArg(this)">
+                                                <i class="am-icon-trash"></i> 删除
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        <!-- more data -->
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</form>

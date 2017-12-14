@@ -264,7 +264,7 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
   border: 2px solid #222;
 }
 .sub-active {
-  color: #fff!important;
+  color: #fff !important;
 }
 .left-sidebar {
   transition: all 0.4s ease-in-out;
@@ -433,17 +433,16 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 .page-header-button {
   transition: all 0.4s ease-in-out;
   opacity: 0.3;
+  font-weight: 500;
   float: right;
   outline: none;
   border: 1px solid #fff;
-  padding: 16px 36px;
-  font-size: 23px;
+  padding: 8px 12px;
+  font-size: 18px;
   line-height: 23px;
-  border-radius: 0;
-  padding-top: 14px;
+  border-radius: 2px;
   color: #fff;
   background-color: rgba(0, 0, 0, 0);
-  font-weight: 500;
 }
 .page-header-button:hover {
   background-color: #ffffff;
@@ -628,7 +627,7 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
   font-size: 14px;
 }
 .cl-p {
-  padding: 0!important;
+  padding: 0 !important;
 }
 .tpl-table-line-img {
   max-width: 100px;
@@ -640,6 +639,12 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 .fc-button-group,
 .fc button {
   display: block;
+}
+tr.ui-state-disabled > td {
+  border-top: 0px !important;
+}
+tr.ui-state-disabled {
+  display: none;
 }
 .theme-white {
   background: #e9ecf3;
@@ -691,13 +696,13 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
   color: #868E8E;
 }
 .theme-white .tpl-calendar-box .fc th.fc-widget-header {
-  background: #32c5d2!important;
+  background: #32c5d2 !important;
   color: #ffffff;
   font-size: 14px;
   line-height: 20px;
   padding: 7px 0px;
   text-transform: uppercase;
-  border: none!important;
+  border: none !important;
 }
 .theme-white .tpl-calendar-box .fc th.fc-widget-header a {
   color: #fff;
@@ -717,7 +722,7 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 .theme-white .tpl-calendar-box .fc thead,
 .theme-white .tpl-calendar-box .fc tbody,
 .theme-white .tpl-calendar-box .fc-row {
-  border-color: #eee!important;
+  border-color: #eee !important;
 }
 .theme-white .tpl-calendar-box .fc-day-number {
   color: #868E8E;
@@ -733,7 +738,7 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
   background: url(../img/logoa.png) center no-repeat;
 }
 .theme-white .sub-active {
-  color: #23abf0!important;
+  color: #23abf0 !important;
 }
 .theme-white .tpl-table-line-img {
   border: 1px solid #ddd;
@@ -1287,7 +1292,7 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 }
 .theme-black .tpl-calendar-box .fc-button {
   border-radius: 0;
-  box-shadow: 0;
+  box-shadow: none;
 }
 .theme-black .tpl-calendar-box .fc-event {
   border-radius: 0;
@@ -1303,13 +1308,13 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
   color: #fff;
 }
 .theme-black .tpl-calendar-box .fc th.fc-widget-header {
-  background: #9675ce!important;
+  background: #9675ce !important;
   color: #ffffff;
   font-size: 14px;
   line-height: 20px;
   padding: 7px 0px;
   text-transform: uppercase;
-  border: none!important;
+  border: none !important;
 }
 .theme-black .tpl-calendar-box .fc th.fc-widget-header a {
   color: #fff;

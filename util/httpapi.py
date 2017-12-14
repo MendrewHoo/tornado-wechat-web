@@ -28,7 +28,6 @@ class HttpApi():
         url = 'https://free-api.heweather.com/s6/weather/forecast?location={}&key={}'
         url = url.format(location, key)
         response = await todoasyncio.to_asyncio_future(self.http_client.fetch(url))
-        print(response.body)
         return json.loads(response.body)
 
     async def bdMapReverse(self, location, key=None, sk=None):

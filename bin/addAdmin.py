@@ -18,7 +18,6 @@ def createAdmin(db):
         'faceurl': '/static/assets/img/user04.png'
     }
     member = db.admin.insert(user)
-    print(member)
 
 def create_index(db):
     db.admin.create_index('userid', unique = True)

@@ -22,13 +22,18 @@
             </a>
         </li>
         <li class="sidebar-nav-link">
+            <a href="/manage/menu" {% if topbar == 'menu' %}class="active"{% endif %}>
+                <i class="am-icon-bars sidebar-nav-link-logo"></i> 菜单管理
+            </a>
+        </li>
+        <li class="sidebar-nav-link">
             <a href="/manage/plugins" {% if topbar == 'plugins' %}class="active"{% endif %}>
                 <i class="am-icon-plug sidebar-nav-link-logo"></i> 插件管理
             </a>
         </li>
 
         <li class="sidebar-nav-link">
-            <a href="javascript:;" class="sidebar-nav-sub-title" >
+            <a href="javascript:;" class="sidebar-nav-sub-title">
                 <i class="am-icon-table sidebar-nav-link-logo"></i> 数据列表
                 <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico
                     {% if topbar in ('userlist',) %}sidebar-nav-sub-ico-rotate{% endif %}"></span>

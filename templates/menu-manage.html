@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block header_title %}菜单管理{% endblock %}
+
+{% block body %}
+    {% include 'module/header.html' %}
+    {% include 'module/left-sidebar.html' %}
+
+    <!-- 内容区域 -->
+    <div class="tpl-content-wrapper">
+
+        <div class="container-fluid am-cf">
+            <div class="row">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-6">
+                    <div class="page-header-heading"><span class="am-icon-plug page-header-heading-icon"></span> 菜单
+                        <small>管理</small>
+                    </div>
+                    <p class="page-header-description"></p>
+                </div>
+                <div class="am-u-lg-6">
+                    <button type="button" class="page-header-button"
+                            onclick="dbAndWechat('download2db', '更新数据库将清空原有数据, 未上传至微信服务器的资源将被移除!')">
+                        <span class="am-icon-cloud-download"></span>
+                        更新数据库
+                    </button>
+                    <button type="button" class="page-header-button am-margin-right-sm"
+                        onclick="dbAndWechat('upload2wechat', '将数据库的资源上传至微信服务器, 微信端的菜单将会更新!')">
+                        <span class="am-icon-cloud-upload"></span>
+                        上传微信服务器
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row-content am-cf">
+            <div class="row">
+
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                    <div class="widget am-cf">
+                        <div class="widget-head am-cf">
+                            <div class="widget-title am-fl">菜单列表
+                                <div class="tpl-table-black-operation am-inline-block">
+                                    <a href="javascript:;" id="new-menu-btn">
+                                        <i class="am-icon-plus"></i> 添加菜单
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="widget-function am-fr">
+                                <span id="update-status">
+                                    <i class=""></i>
+                                    <span class="am-text-sm"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="widget-body  widget-body-lg am-fr">
+
+                            <table width="100%" class="am-table am-table-compact tpl-table-black" id="example-r"
+                                   data-menu-sort='{{ menu_sort_str }}'>
+                                <thead class="ui-state-disabled">
+                                <tr>
+                                    <th>菜单名</th>
+                                    <th>菜单类型</th>
+                                    <th>菜单参数</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+
+                                {{ menu_table_html(menulist) }}
+                                <!-- more data -->
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    {# 模板区 #}
+    <div class="html_temp am-hide">
+        <form class="am-form tpl-form-line-form temp_new_menu" id="new-menu-form" data-menu-type="new">
+            <div class="am-form-group">
+                <input type="text" class="tpl-form-input" name="name" placeholder="菜单名" required>
+            </div>
+            {# 非父级菜单 #}
+            <div class="am-form-group">
+                {% for k, v in typedict.items() %}
+                    <div class="pretty p-default p-round">
+                        <input type="radio" name="type" value="{{ k }}">
+                        <div class="state">
+                            <label>{{ v }}</label>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </form>
+        <table>
+            <tr class="gradeX temp_add_arg">
+                <td><input type="text" class="tpl-form-input" name="key" placeholder="键" required></td>
+                <td><input type="text" class="tpl-form-input" name="value" placeholder="值" required>
+                </td>
+                <td>
+                    <div class="tpl-table-black-operation">
+                        <a href="javascript:;" class="tpl-table-black-operation-del" onclick="removeArg(this)">
+                            <i class="am-icon-trash"></i> 删除
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block header_static %}
+    <link rel="stylesheet" href="{{ static_url('assets/css/jquery-ui.css') }}">
+    <link rel="stylesheet" href="{{ static_url('assets/css/pretty-checkbox.min.css') }}">
+{% endblock %}
+
+{% block footer_static %}
+    <script src="{{ static_url('assets/js/jquery-ui.min.js') }}"></script>
+    <script src="{{ static_url('assets/js/amazeui.datatables.min.js') }}"></script>
+    <script src="{{ static_url('assets/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ static_url('assets/js/menu.js') }}"></script>
+{% endblock %}

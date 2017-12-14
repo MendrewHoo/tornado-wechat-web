@@ -27,7 +27,7 @@ var setting = function (obj) {
     } else {
         $obj.parent().find('span').html("");
         $obj.removeClass(save).addClass(edit);
-        $tbody.sortable({disabled: true});
+        $tbody.sortable({disabled: true}).enableSelection();
         updatePluginList($tbody);
     }
 };

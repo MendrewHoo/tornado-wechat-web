@@ -2,6 +2,10 @@
   "bdmap": "your key"
   "bdmap_sk": "your sk"
   "heweather": "your key"
+"wechat":
+  "appid": "your appid"
+  "appsecret": "your appsecret"
+  "token": "your token"
 "database":
   "config": "mongodb://localhost:27017/"
   "db": "TodoWeChat"
@@ -9,11 +13,10 @@
   "cookie_secret": "qEVaTBfXQUm9roVlSXh0Yg=="
   "debug": !!bool "true"
   "intranet": !!bool "true"
-  "wechat":
-    "appid": "your appid"
-    "appsecret": "your appsecret"
-    "token": "your token"
   "wechat_auth": !!bool "true"
+  "power":
+    20: "admin"
+    -1: "guest"
 "plugin_config":
   "click_event":
   - "weather"
